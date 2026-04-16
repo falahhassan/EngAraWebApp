@@ -55,22 +55,44 @@ function debounce(fn, delay = 250) {
 // ── Dictionary loader ──────────────────────────────────────────────────────
 
 async function loadDictionary() {
+  const statsDiv = document.getElementById("stats");
+  const resultsDiv = document.getElementById("results");
+
   try {
+    console.log("1. Starting load...");
+    // Try absolute path from root (works on Netlify)
     const response = await fetch("/data/dictionary.json");
-    if (!response.ok) throw new Error("File not found");
-    dictionaryData = await response.json();
-    _entries = null; // reset cache after load
-    document.getElementById("stats").innerHTML =
-      `✅ ${Object.keys(dictionaryData).length} entries loaded`;
-    document.getElementById("results").innerHTML =
+    console.log("2. Response status:", response.status);
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    // Get as text first to check size
+    const jsonText = await response.text();
+    console.log("3. File size:", jsonText.length, "bytes");
+
+    if (jsonText.length < 100)
+      throw new Error("File too small - maybe wrong file?");
+
+    dictionaryData = JSON.parse(jsonText);
+    const entryCount = Object.keys(dictionaryData).length;
+    console.log("4. Entries loaded:", entryCount);
+
+    if (entryCount === 0) throw new Error("Parsed JSON has 0 entries");
+
+    _entries = null;
+    statsDiv.innerHTML = `✅ ${entryCount} entries loaded`;
+    resultsDiv.innerHTML =
       '<div class="no-results">✨ Type a word to search</div>';
   } catch (err) {
-    document.getElementById("stats").innerHTML =
-      "❌ Failed to load dictionary.json";
-    document.getElementById("results").innerHTML = `<div class="error">
-      Start a local server: <code>python3 -m http.server 8000</code><br>
-      Then open <strong>http://localhost:8000</strong><br>
-      Ensure dictionary.json is in the <strong>data/</strong> folder.
+    console.error("LOAD ERROR:", err);
+    statsDiv.innerHTML = "❌ Dictionary load failed";
+    resultsDiv.innerHTML = `<div class="error">
+      <strong>Error:</strong> ${err.message}<br><br>
+      <strong>Mobile fix:</strong><br>
+      1. Refresh the page<br>
+      2. Clear browser cache<br>
+      3. Check your network<br><br>
+      <small>See console (green button) for details</small>
     </div>`;
   }
 }
