@@ -3,24 +3,44 @@
   font-family: system-ui, sans-serif;
 }
 body {
-  background: #f0f4f8;
+  background: #e2e8f0;
+  margin: 0;
+  padding: 1rem;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  margin: 0;
-  padding: 1rem;
 }
-.container {
-  max-width: 800px;
+.app-wrapper {
+  max-width: 1000px;
   width: 100%;
   background: white;
-  border-radius: 2rem;
-  padding: 2rem;
+  border-radius: 1.5rem;
   box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* keeps border-radius clean */
 }
-h1 {
-  margin-top: 0;
+.main-header {
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  color: white;
+  padding: 1.5rem 2rem;
+  text-align: center;
+}
+.main-header h1 {
+  margin: 0 0 0.4rem;
+  font-size: 2rem;
+}
+.main-header p {
+  margin: 0;
+  opacity: 0.85;
+  font-size: 0.9rem;
+}
+
+.container {
+  padding: 2rem;
+  flex: 1; /* takes available space, pushes footer down */
+  background: white;
 }
 .search-area {
   display: flex;
@@ -50,6 +70,11 @@ button:hover {
   color: #334155;
   margin-bottom: 1rem;
 }
+.results {
+  max-height: 50vh; /* limit height, scroll inside */
+  overflow-y: auto;
+  margin-bottom: 0.5rem;
+}
 .entry {
   background: #fefce8;
   border-left: 5px solid #eab308;
@@ -76,3 +101,28 @@ button:hover {
   background: #fee2e2;
   color: #991b1b;
 }
+
+.main-footer {
+  background: #f1f5f9;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.75rem;
+  color: #334155;
+  border-top: 1px solid #e2e8f0;
+}
+.main-footer code {
+  background: #e2e8f0;
+  padding: 0.2rem 0.4rem;
+  border-radius: 8px;
+}
+/* highlight matched text */
+mark {
+  background: #fac775;
+  color: #412402;
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+/* subtle visual cue per match type */
+.entry[data-match-type="exact"]   { border-left: 3px solid #1d9e75; }
+.entry[data-match-type="meaning"] { opacity: 0.85; }

@@ -1,21 +1,47 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dictionary App</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <div class="container">
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="app-wrapper">
+      <!-- HEADER -->
+      <header class="main-header">
         <h1>📖 Dictionary</h1>
+        <p>English ↔ Arabic | fast substring search</p>
+      </header>
+
+      <!-- MAIN CONTENT -->
+      <main class="container">
         <div class="search-area">
-            <input type="text" id="searchInput" placeholder="Search English word...">
-            <button id="searchBtn">Search</button>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search English word... e.g., 'hello', '10th'"
+          />
+          <button id="searchBtn">Search</button>
         </div>
         <div id="stats" class="stats"></div>
         <div id="results" class="results"></div>
+      </main>
+
+      <!-- FOOTER -->
+      <footer class="main-footer">
+        <p>
+          📂 Dictionary data: <strong>dictionary.json</strong> | Use local
+          server: <code>python3 -m http.server 8000</code>
+        </p>
+        <p>© 2026 Simple Dictionary App</p>
+        <p>By FHLabs Falah Hasan</p>
+        <p>Contributors: Falah Hasan</p>
+        <p>
+          Contact: <a href="mailto:fahlabs13@gmail.com">fahlabs13@gmail.com</a>
+        </p>
+      </footer>
     </div>
     <script src="js/script.js"></script>
-</body>
+  </body>
 </html>
