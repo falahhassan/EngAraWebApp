@@ -56,7 +56,7 @@ function debounce(fn, delay = 250) {
 
 async function loadDictionary() {
   try {
-    const response = await fetch("../data/dictionary.json");
+    const response = await fetch("/data/dictionary.json");
     if (!response.ok) throw new Error("File not found");
     dictionaryData = await response.json();
     _entries = null; // reset cache after load
